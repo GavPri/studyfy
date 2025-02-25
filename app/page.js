@@ -1,7 +1,19 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+"use client";
+import { useEffect } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function Home() {
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user?.emailAddresses?.[0]?.emailAddress) {
+      console.log("User Email:", user.emailAddresses[0].emailAddress);
+
+    }
+  }, [user]);
+
   return (
     <div className="relative min-h-dvh w-full flex items-center justify-center overflow-hidden">
       {/* Animated gradient background */}
@@ -14,7 +26,8 @@ export default function Home() {
             Welcome to Studyfy
           </h1>
           <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
-            Your personal study companion. Join us to enhance your learning journey.
+            Your personal study companion. Join us to enhance your learning
+            journey.
           </p>
         </div>
 
@@ -30,7 +43,8 @@ export default function Home() {
             </Button>
           </Link>
         </div>
+        <UserButton />
       </div>
     </div>
-  )
+  );
 }
