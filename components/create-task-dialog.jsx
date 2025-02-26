@@ -27,6 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
 
 import { supabase } from "@/lib/supabase";
 
@@ -37,7 +38,7 @@ const CreateTaskDialog = ({ user }) => {
 
   const onSubmit = async (data) => {
   if (!user) {
-    alert("You must be logged in to create a task.");
+    toast("You must be logged in to create a task.");
     return;
   }
 
@@ -64,11 +65,11 @@ const CreateTaskDialog = ({ user }) => {
     ]);
 
     if (error) throw error;
-    alert("Task created successfully!");
+    toast("Task created successfully!");
     reset();
   } catch (error) {
     console.error("Error adding task:", error.message);
-    alert("Failed to create task: " + error.message);
+    toast("Failed to create task: " + error.message);
   } finally {
     setLoading(false);
   }
