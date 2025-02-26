@@ -58,7 +58,7 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard/{user_email}",
       icon: PieChart,
       isActive: true,
       items: [
@@ -121,7 +121,7 @@ const data = {
       items: [
         {
           title: "To-Do List",
-          url: "#",
+          url: "/to-do/{user_email}",
         },
         {
           title: "Timetable",

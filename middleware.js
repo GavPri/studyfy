@@ -27,7 +27,10 @@ export default clerkMiddleware(async (auth, req) => {
         }
       );
 
+      console.log("User API Response Status:", userResponse.status);
+
       if (!userResponse.ok) {
+        console.error("Clerk API Error Response:", errorBody);
         throw new Error("Failed to fetch user data");
       }
 
@@ -41,13 +44,9 @@ export default clerkMiddleware(async (auth, req) => {
         return NextResponse.rewrite(new URL("/", req.url));
       }
 
-      const dashboardUrl = `/dashboard/${userEmail}`;
-
-      // ✅ Prevent infinite redirects: only redirect from "/" if NOT already at dashboard
-      if (
-        req.nextUrl.pathname === "/" &&
-        req.nextUrl.pathname !== dashboardUrl
-      ) {
+      // ✅ Redirect to dashboard if on home page
+      if (req.nextUrl.pathname === "/" && userEmail) {
+        const dashboardUrl = `/dashboard/${userEmail}`;
         return NextResponse.redirect(new URL(dashboardUrl, req.url));
       }
     } catch (error) {
