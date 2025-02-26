@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         >
           <SideBarComponent />
           {/* Main Content */}
-          <main className="mt-4">{children}</main>
+          <main className="my-4">{children}</main>
           <Toaster />
         </body>
       </html>
